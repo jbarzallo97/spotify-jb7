@@ -1,0 +1,198 @@
+.profile-container {
+  text-align: center;
+  color: white;
+  width: 100%;
+  max-width: 1500px;
+   margin: 0 auto;
+  /* padding: 0 20px; */
+}
+
+.profile-header {
+  margin-top: 20px;
+}
+
+.profile-picture {
+  width: 178px;
+  height: 175px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 70px;
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 3rem;
+}
+
+.profile-stats {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  gap: 40px; /* Agrega espacio entre cada bloque de estadísticas */
+  margin-bottom: 40px;
+}
+
+.profile-stats div {
+  text-align: center;
+}
+
+.profile-number {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #1db954;
+
+}
+
+.profile-label {
+  font-size: 1rem;
+  color: #b3b3b3;
+}
+
+.logout-button {
+  background-color: transparent;
+  border: 1px solid white;
+  padding: 10px 25px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 20px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.logout-button:hover {
+  background-color: white;
+  border: 1px solid white;
+  color: #000;
+  transition: 0.3s;
+}
+
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 40px 20px;
+  margin-top: 60px;
+}
+
+.top-artists, .top-tracks {
+  width: 45%;
+}
+
+.top-artists ul, .top-tracks ul {
+  list-style: none;
+  padding: 0;
+}
+
+.top-artists li, .top-tracks li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.top-tracks li span:first-child {
+  text-align: left;
+}
+
+.top-tracks li span:last-child {
+  text-align: right;
+}
+
+.see-more-button {
+  white-space: nowrap;
+  display: inline-block;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 0.85rem;
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.see-more-button:hover {
+  background-color: white;
+  border: 1px solid white;
+  color: #000;
+  transition: 0.3s;
+}
+
+/* Para alinear el título y el botón en la misma línea */
+.tracks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.tracks-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Para alinear el título y el botón en la misma línea */
+.artists-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.artists-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.artist-image {
+  width: 60px; /* Ajusta el tamaño de la imagen */
+  height: 60px; /* Asegúrate de que la imagen sea cuadrada */
+  border-radius: 50%; /* Para que la imagen sea redonda */
+  margin-right: 30px; /* Espacio entre la imagen y el nombre */
+  vertical-align: middle; /* Alinea la imagen con el texto */
+}
+
+.top-artists ul {
+  padding-left: 0; /* Elimina el padding de la lista */
+  list-style: none; /* Elimina las viñetas de la lista */
+}
+
+.top-artists li {
+  display: flex; /* Usa flexbox para alinear imagen y texto */
+  align-items: center; /* Alinea verticalmente en el centro */
+  margin-bottom: 25px; /* Espacio entre los elementos de la lista */
+  justify-content: flex-start; /* Alinea los elementos al inicio */
+  padding: 5px 0; /* Agrega un padding vertical para más espacio */
+}
+
+.track-info {
+  display: flex; /* Usa flexbox para alinear la imagen y el nombre */
+  align-items: center; /* Alinea verticalmente en el centro */
+}
+
+.track-image {
+  width: 60px; /* Ajusta el tamaño de la imagen */
+  height: 60px; /* Asegúrate de que la imagen sea cuadrada */
+  margin-right: 30px; /* Espacio entre la imagen y el nombre */
+}
+
+.top-tracks ul {
+  padding-left: 0; /* Elimina el padding de la lista */
+  list-style: none; /* Elimina las viñetas de la lista */
+}
+
+.top-tracks li {
+  display: flex; /* Usa flexbox para alinear la información de la pista y la duración */
+  justify-content: space-between; /* Espacio entre la izquierda y derecha */
+  align-items: center; /* Alinea verticalmente en el centro */
+  margin-bottom: 25px; /* Espacio entre los elementos de la lista */
+  padding: 5px 0; /* Agrega un padding vertical para más espacio */
+}
+
+.track-duration {
+  text-align: right; /* Alinea la duración a la derecha */
+  min-width: 40px; /* Asegúrate de que haya espacio suficiente para la duración */
+}

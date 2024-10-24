@@ -1,1 +1,17 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --main-fund: rgb(24, 24, 24);
+  --spotify-green: #1db954;
+  --spotify-green-light: #1ed760;
+}
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "Circular Std", system, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+

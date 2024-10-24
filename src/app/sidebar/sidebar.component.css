@@ -1,0 +1,184 @@
+.profile-container {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  height: 100vh;
+}
+
+.sidebar {
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+}
+
+.logo {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.logo i {
+  font-size: 50px;
+  color: #1db954;
+}
+
+.menu ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 20px 0;
+  cursor: pointer;
+  color: #b3b3b3;
+  position: relative;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.menu ul li i {
+  font-size: 20px;
+}
+
+.menu ul li span {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.menu ul li.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background-color: #1db954;
+}
+
+.menu ul li.active {
+  background-color: rgb(24, 24, 24);
+  color: white;
+}
+
+.menu ul li:hover {
+  color: white;
+  background-color: rgb(24, 24, 24);
+}
+
+.bottom-icon {
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+.bottom-icon i {
+  font-size: 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.bottom-icon i:hover {
+  color: #1ed760;
+}
+
+.main-content {
+  background-color:  rgb(24, 24, 24);
+  color: white;
+  overflow-y: auto;
+  padding: 0 20px;
+
+}
+
+
+@media (max-width: 768px) {
+  .profile-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    height: auto;
+  }
+
+  .logo {
+    display: none;
+  }
+
+  .sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    background-color: #000;
+    z-index: 1;
+  }
+
+  .menu {
+    width: 100%;
+    height: 100%;
+  }
+
+  .menu ul {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+
+  .menu ul li {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    position: relative;
+    padding: 0;
+  }
+
+  .menu ul li i {
+    font-size: 18px;
+  }
+
+  .menu ul li span {
+    font-size: 10px;
+  }
+
+  .menu ul li.active {
+    color: white;
+    background-color: #212121;
+    z-index: 1;
+  }
+
+  .menu ul li.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    width: 100%;
+    background-color: #1db954;
+    z-index: 2;
+  }
+
+  .menu ul li:hover {
+    color: white;
+    background-color: #333;
+  }
+
+  .main-content {
+    padding-bottom: 70px;
+    height: calc(100vh - 70px);
+  }
+
+  .bottom-icon {
+    display: none;
+  }
+
+  .bottom-icon i {
+    font-size: 18px;
+  }
+}
