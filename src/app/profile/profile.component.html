@@ -1,23 +1,23 @@
 <div class="profile-container">
   <div class="profile-header">
-    <img class="profile-picture" src="assets/images/file.jpg" alt="Profile Picture">
-    <h1>Johan Barzallo</h1>
+    <img class="profile-picture" [src]="profile.pictureUrl" [alt]="profile.name">
+    <h1>{{ profile.name }}</h1>
     <div class="profile-stats">
       <div>
-        <span class="profile-number">0</span>
+        <span class="profile-number">{{ profile.followers }}</span>
         <span class="profile-label">FOLLOWERS</span>
       </div>
       <div>
-        <span class="profile-number">12</span>
+        <span class="profile-number">{{ profile.following }}</span>
         <span class="profile-label">FOLLOWING</span>
       </div>
       <div>
-        <span class="profile-number">2</span>
+        <span class="profile-number">{{ profile.playlists }}</span>
         <span class="profile-label">PLAYLISTS</span>
       </div>
     </div>
 
-    <button class="logout-button">LOGOUT</button>
+    <button class="logout-button" (click)="logout()">LOGOUT</button>
   </div>
 
   <div class="content-container">
@@ -27,23 +27,10 @@
         <button class="see-more-button">SEE MORE</button>
       </div>
       <ul>
-        <li>
-          <img src="assets/images/file.jpg" alt="Miel San Marcos" class="artist-image">
-          Miel San Marcos
+        <li *ngFor="let artist of topArtists">
+          <img *ngIf="artist.imageUrl" [src]="artist.imageUrl" [alt]="artist.name" class="artist-image">
+          {{ artist.name }}
         </li>
-        <li>
-          <img src="assets/images/file.jpg" alt="Juan Carlos Alvarado" class="artist-image">
-          Juan Carlos Alvarado
-        </li>
-        <li>
-          <img src="assets/images/file.jpg" alt="Romeo Santos" class="artist-image">
-          Romeo Santos
-        </li>
-        <li>
-          <img src="assets/images/file.jpg" alt="Aventura" class="artist-image">
-          Aventura
-        </li>
-        <!-- Agrega más artistas aquí -->
       </ul>
     </div>
 
@@ -55,35 +42,13 @@
         <button class="see-more-button">SEE MORE</button>
       </div>
       <ul>
-        <li>
+        <li *ngFor="let track of topTracks">
           <div class="track-info">
-            <img src="assets/images/file.jpg" alt="Imagen de la canción" class="track-image">
-            <span>El Señor Es Mi Rey</span>
+            <img [src]="track.imageUrl" [alt]="track.title" class="track-image">
+            <span>{{ track.title }}</span>
           </div>
-          <span class="track-duration">1:39</span>
+          <span class="track-duration">{{ track.duration }}</span>
         </li>
-        <li>
-          <div class="track-info">
-            <img src="assets/images/file.jpg" alt="Imagen de la canción" class="track-image">
-            <span>Cristo No Está Muerto</span>
-          </div>
-          <span class="track-duration">1:27</span>
-        </li>
-        <li>
-          <div class="track-info">
-            <img src="assets/images/file.jpg" alt="Imagen de la canción" class="track-image">
-            <span>Llegó El Tiempo</span>
-          </div>
-          <span class="track-duration">2:54</span>
-        </li>
-        <li>
-          <div class="track-info">
-            <img src="assets/images/file.jpg" alt="Imagen de la canción" class="track-image">
-            <span>Agradecido</span>
-          </div>
-          <span class="track-duration">3:41</span>
-        </li>
-        <!-- Agrega más tracks aquí -->
       </ul>
     </div>
 

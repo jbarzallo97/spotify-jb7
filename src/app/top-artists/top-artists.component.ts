@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./top-artists.component.css']
 })
 export class TopArtistsComponent {
+  selectedPeriod = 'allTime';
 
+  selectPeriod(period: string) {
+    this.selectedPeriod = period;
+  }
 }

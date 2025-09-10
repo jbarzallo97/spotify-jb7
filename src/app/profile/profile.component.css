@@ -8,7 +8,7 @@
 }
 
 .profile-header {
-  margin-top: 20px;
+  margin-top: 70px;
 }
 
 .profile-picture {
@@ -16,7 +16,7 @@
   height: 175px;
   border-radius: 50%;
   object-fit: cover;
-  margin-top: 70px;
+  /* margin-top: 70px; */
 }
 
 h1 {
