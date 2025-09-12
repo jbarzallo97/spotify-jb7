@@ -16,56 +16,26 @@
     </div>
   </div>
 
-  <!-- Nueva sección de artistas en formato grid -->
+  <!-- Listado dinámico de artistas -->
   <div class="artists-container">
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
+    <div *ngIf="isLoading" class="loading-wrapper">
+      <div class="equalizer">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Juan Carlos Alvarado">
-      <p>Juan Carlos Alvarado</p>
+    <div *ngIf="!isLoading && artists.length === 0" class="empty-state">
+      No hay artistas para mostrar.
     </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Third Artist">
-      <p>Third Artist</p>
-    </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
-    </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
-    </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
-    </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
-    </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
-    </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
-    </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
-    </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
-    </div>
-    <div class="artist-item">
-      <img src="assets/images/file.jpg" alt="Miel San Marcos">
-      <p>Miel San Marcos</p>
-    </div>
+    <ng-container *ngIf="!isLoading && artists.length > 0">
+      <div class="artist-item" *ngFor="let artist of artists">
+        <img *ngIf="artist.imageUrl" [src]="artist.imageUrl" [alt]="artist.name">
+        <p>{{ artist.name }}</p>
+      </div>
+    </ng-container>
   </div>
 
 </div>
