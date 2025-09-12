@@ -39,13 +39,7 @@ export class ProfileComponent {
   };
 
   topArtists: Artist[] = [];
-
-  topTracks: Track[] = [
-    { title: 'El Señor Es Mi Rey', duration: '1:39', imageUrl: 'assets/images/file.jpg' },
-    { title: 'Cristo No Está Muerto', duration: '1:27', imageUrl: 'assets/images/file.jpg' },
-    { title: 'Llegó El Tiempo', duration: '2:54', imageUrl: 'assets/images/file.jpg' },
-    { title: 'Agradecido', duration: '3:41', imageUrl: 'assets/images/file.jpg' }
-  ];
+  topTracks: Track[] = [];
 
   selectMenuItem(menuItem: string) {
     this.selectedMenuItem = menuItem;
@@ -55,6 +49,7 @@ export class ProfileComponent {
 
   ngOnInit(): void {
     this.loadTopArtists();
+    this.loadTopTracks();
   }
 
   private loadTopArtists(): void {
@@ -69,6 +64,29 @@ export class ProfileComponent {
           imageUrl: a?.images?.[0]?.url ?? ''
         }));
       });
+  }
+
+  private loadTopTracks(): void {
+    const token = this.authService.getAccessToken();
+    if (!token) {
+      return;
+    }
+    this.spotifyService.getTopTracks(token, 'long_term', 10, 0)
+      .subscribe((res: any) => {
+        this.topTracks = (res?.items || []).map((t: any) => ({
+          title: t?.name ?? 'Unknown Track',
+          duration: this.formatDuration(t?.duration_ms ?? 0),
+          imageUrl: t?.album?.images?.[0]?.url ?? ''
+        }));
+      });
+  }
+
+  private formatDuration(ms: number): string {
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    const paddedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${minutes}:${paddedSeconds}`;
   }
 
 
