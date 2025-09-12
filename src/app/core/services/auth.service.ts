@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private clientId = '35c9a4b3c9db45268c463448bbd6fd25';
-  private redirectUri = 'http://localhost:4200/callback';
-  private scopes = 'user-read-private user-read-email user-follow-read user-top-read';
+  private clientId = environment.spotifyClientId;
+  private redirectUri = environment.spotifyRedirectUri;
+  private scopes = environment.spotifyScopes;
 
   constructor() { }
 
