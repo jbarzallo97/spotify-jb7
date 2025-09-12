@@ -27,8 +27,6 @@ interface Track {
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  selectedMenuItem: string = 'profile';  // Por defecto, selecciona "profile"
-
   profile: UserProfile = {
     name: '',
     pictureUrl: '',
@@ -40,10 +38,6 @@ export class ProfileComponent {
   topArtists: Artist[] = [];
   topTracks: Track[] = [];
 
-  selectMenuItem(menuItem: string) {
-    this.selectedMenuItem = menuItem;
-  }
-
   constructor(private spotifyService: SpotifyService, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -51,6 +45,7 @@ export class ProfileComponent {
     this.loadTopTracks();
     this.loadUserProfile();
     this.loadUserPlaylistsCount();
+    this.loadUserFollowingCount();
   }
 
   private loadTopArtists(): void {
@@ -119,6 +114,21 @@ export class ProfileComponent {
         this.profile = {
           ...this.profile,
           playlists: total
+        };
+      });
+  }
+
+  private loadUserFollowingCount(): void {
+    const token = this.authService.getAccessToken();
+    if (!token) {
+      return;
+    }
+    this.spotifyService.getFollowingArtists(token, 1)
+      .subscribe((res: any) => {
+        const total = res?.artists?.total ?? 0;
+        this.profile = {
+          ...this.profile,
+          following: total
         };
       });
   }

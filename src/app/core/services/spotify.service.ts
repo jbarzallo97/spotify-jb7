@@ -59,4 +59,14 @@ export class SpotifyService {
     const url = `https://api.spotify.com/v1/me/playlists?limit=${limit}&offset=${offset}`;
     return this.http.get(url, { headers });
   }
+
+  // Método para obtener la cantidad de artistas seguidos (following)
+  getFollowingArtists(accessToken: string, limit: number = 1): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${accessToken}`
+    });
+    // La respuesta incluye artists.total con el total seguido
+    const url = `https://api.spotify.com/v1/me/following?type=artist&limit=${limit}`;
+    return this.http.get(url, { headers });
+  }
 }
