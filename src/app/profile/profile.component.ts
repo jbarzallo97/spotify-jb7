@@ -27,15 +27,14 @@ interface Track {
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
-  followedArtists: any[] = [];
   selectedMenuItem: string = 'profile';  // Por defecto, selecciona "profile"
 
   profile: UserProfile = {
-    name: 'Johan Barzallo',
-    pictureUrl: 'assets/images/file.jpg',
+    name: '',
+    pictureUrl: '',
     followers: 0,
-    following: 12,
-    playlists: 2
+    following: 0,
+    playlists: 0
   };
 
   topArtists: Artist[] = [];
@@ -50,6 +49,8 @@ export class ProfileComponent {
   ngOnInit(): void {
     this.loadTopArtists();
     this.loadTopTracks();
+    this.loadUserProfile();
+    this.loadUserPlaylistsCount();
   }
 
   private loadTopArtists(): void {
@@ -87,6 +88,39 @@ export class ProfileComponent {
     const seconds = totalSeconds % 60;
     const paddedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
     return `${minutes}:${paddedSeconds}`;
+  }
+
+  private loadUserProfile(): void {
+    const token = this.authService.getAccessToken();
+    if (!token) {
+      return;
+    }
+    this.spotifyService.getCurrentUser(token)
+      .subscribe((user: any) => {
+        this.profile = {
+          name: user?.display_name ?? this.profile.name,
+          pictureUrl: user?.images?.[0]?.url ?? this.profile.pictureUrl,
+          followers: user?.followers?.total ?? this.profile.followers,
+          following: this.profile.following,
+          playlists: this.profile.playlists
+        };
+      });
+  }
+
+  private loadUserPlaylistsCount(): void {
+    const token = this.authService.getAccessToken();
+    if (!token) {
+      return;
+    }
+    // Pedimos 1 ítem: el response incluye 'total' con el total de playlists
+    this.spotifyService.getUserPlaylists(token, 1, 0)
+      .subscribe((res: any) => {
+        const total = res?.total ?? (res?.items?.length ?? 0);
+        this.profile = {
+          ...this.profile,
+          playlists: total
+        };
+      });
   }
 
 
