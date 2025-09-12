@@ -1,4 +1,4 @@
-<div class="profile-container">
+<div class="profile-container" *ngIf="!isLoading; else loadingTpl">
   <div class="profile-header">
     <img class="profile-picture" [src]="profile.pictureUrl" [alt]="profile.name">
     <h1>{{ profile.name }}</h1>
@@ -50,6 +50,14 @@
 
   </div>
 </div>
-
-
-
+<ng-template #loadingTpl>
+  <div class="loading-wrapper">
+    <div class="equalizer">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</ng-template>

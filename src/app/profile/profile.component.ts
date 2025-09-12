@@ -1,25 +1,13 @@
 import { Component } from '@angular/core';
+import { forkJoin, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { SpotifyService } from '../core/services/spotify.service';
 import { AuthService } from '../core/services/auth.service';
+import { UserProfile } from '../core/interface/user-profile.interface';
+import { Artist } from '../core/interface/artist.interface';
+import { Track } from '../core/interface/track.interface';
 
-interface UserProfile {
-  name: string;
-  pictureUrl: string;
-  followers: number;
-  following: number;
-  playlists: number;
-}
 
-interface Artist {
-  name: string;
-  imageUrl: string;
-}
-
-interface Track {
-  title: string;
-  duration: string;
-  imageUrl: string;
-}
 
 @Component({
   selector: 'app-profile',
@@ -27,6 +15,7 @@ interface Track {
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent {
+  isLoading = true;
   profile: UserProfile = {
     name: '',
     pictureUrl: '',
@@ -41,11 +30,7 @@ export class ProfileComponent {
   constructor(private spotifyService: SpotifyService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loadTopArtists();
-    this.loadTopTracks();
-    this.loadUserProfile();
-    this.loadUserPlaylistsCount();
-    this.loadUserFollowingCount();
+    this.loadAllData();
   }
 
   private loadTopArtists(): void {
@@ -131,6 +116,73 @@ export class ProfileComponent {
           following: total
         };
       });
+  }
+
+  private loadAllData(): void {
+    const token = this.authService.getAccessToken();
+    if (!token) {
+      this.isLoading = false;
+      return;
+    }
+
+    const topArtists$ = this.spotifyService.getTopArtists(token, 'long_term', 10, 0).pipe(
+      map((res: any) => {
+        this.topArtists = (res?.items || []).map((a: any) => ({
+          name: a?.name ?? 'Unknown Artist',
+          imageUrl: a?.images?.[0]?.url ?? ''
+        }));
+        return true;
+      }),
+      catchError(() => of(false))
+    );
+
+    const topTracks$ = this.spotifyService.getTopTracks(token, 'long_term', 10, 0).pipe(
+      map((res: any) => {
+        this.topTracks = (res?.items || []).map((t: any) => ({
+          title: t?.name ?? 'Unknown Track',
+          duration: this.formatDuration(t?.duration_ms ?? 0),
+          imageUrl: t?.album?.images?.[0]?.url ?? ''
+        }));
+        return true;
+      }),
+      catchError(() => of(false))
+    );
+
+    const profile$ = this.spotifyService.getCurrentUser(token).pipe(
+      map((user: any) => {
+        this.profile = {
+          name: user?.display_name ?? this.profile.name,
+          pictureUrl: user?.images?.[0]?.url ?? this.profile.pictureUrl,
+          followers: user?.followers?.total ?? this.profile.followers,
+          following: this.profile.following,
+          playlists: this.profile.playlists
+        };
+        return true;
+      }),
+      catchError(() => of(false))
+    );
+
+    const playlistsCount$ = this.spotifyService.getUserPlaylists(token, 1, 0).pipe(
+      map((res: any) => {
+        const total = res?.total ?? (res?.items?.length ?? 0);
+        this.profile = { ...this.profile, playlists: total };
+        return true;
+      }),
+      catchError(() => of(false))
+    );
+
+    const followingCount$ = this.spotifyService.getFollowingArtists(token, 1).pipe(
+      map((res: any) => {
+        const total = res?.artists?.total ?? 0;
+        this.profile = { ...this.profile, following: total };
+        return true;
+      }),
+      catchError(() => of(false))
+    );
+
+    forkJoin([topArtists$, topTracks$, profile$, playlistsCount$, followingCount$]).subscribe(() => {
+      this.isLoading = false;
+    });
   }
 
 
