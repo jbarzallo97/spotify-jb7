@@ -9,7 +9,7 @@ import { AuthService } from '../core/services/auth.service';
 })
 export class TopArtistsComponent implements OnInit {
   selectedPeriod: 'allTime' | 'last6Months' | 'last4Weeks' = 'allTime';
-  artists: Array<{ name: string; imageUrl: string }> = [];
+  artists: Array<{ id: string; name: string; imageUrl: string; spotifyUrl: string }> = [];
   isLoading = false;
 
   constructor(private spotifyService: SpotifyService, private authService: AuthService) {}
@@ -33,8 +33,10 @@ export class TopArtistsComponent implements OnInit {
     this.spotifyService.getTopArtists(token, timeRange, 50, 0)
       .subscribe((res: any) => {
         this.artists = (res?.items || []).map((a: any) => ({
+          id: a?.id ?? '',
           name: a?.name ?? 'Unknown Artist',
-          imageUrl: a?.images?.[0]?.url ?? ''
+          imageUrl: a?.images?.[0]?.url ?? '',
+          spotifyUrl: a?.external_urls?.spotify ?? '#'
         }));
         this.isLoading = false;
       }, () => {
