@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { SpotifyService } from '../core/services/spotify.service';
-import { AuthService } from '../core/services/auth.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,9 +15,20 @@ export class SidebarComponent {
     this.selectedMenuItem = menuItem;
   }
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.syncSelectedFromUrl(this.router.url);
+    this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe(e => this.syncSelectedFromUrl(e.urlAfterRedirects));
   }
 
+  private syncSelectedFromUrl(url: string) {
+    if (url.includes('top-artists')) this.selectedMenuItem = 'top-artists';
+    else if (url.includes('top-tracks')) this.selectedMenuItem = 'top-tracks';
+    else if (url.includes('recent')) this.selectedMenuItem = 'recent';
+    else if (url.includes('playlists')) this.selectedMenuItem = 'playlists';
+    else this.selectedMenuItem = 'profile';
+  }
 }
