@@ -1,19 +1,39 @@
 <div class="profile-container" *ngIf="!isLoading; else loadingTpl">
   <div class="profile-header">
-    <img class="profile-picture" [src]="profile.pictureUrl" [alt]="profile.name">
+    <div class="profile-avatar">
+      <img *ngIf="profile.pictureUrl; else noPic" class="profile-picture" [src]="profile.pictureUrl" [alt]="profile.name">
+    </div>
+    <ng-template #noPic>
+      <div class="avatar-fallback">{{ getInitials(profile.name) }}</div>
+    </ng-template>
     <h1>{{ profile.name }}</h1>
-    <div class="profile-stats">
-      <div>
-        <span class="profile-number">{{ profile.followers }}</span>
-        <span class="profile-label">FOLLOWERS</span>
+    <div class="profile-stats-cards">
+      <div class="stat-card">
+        <div class="stat-content">
+          <span class="stat-icon">👥</span>
+          <div>
+            <span class="profile-number">{{ profile.followers }}</span>
+            <span class="profile-label">Followers</span>
+          </div>
+        </div>
       </div>
-      <div>
-        <span class="profile-number">{{ profile.following }}</span>
-        <span class="profile-label">FOLLOWING</span>
+      <div class="stat-card">
+        <div class="stat-content">
+          <span class="stat-icon">🎧</span>
+          <div>
+            <span class="profile-number">{{ profile.following }}</span>
+            <span class="profile-label">Following</span>
+          </div>
+        </div>
       </div>
-      <div>
-        <span class="profile-number">{{ profile.playlists }}</span>
-        <span class="profile-label">PLAYLISTS</span>
+      <div class="stat-card">
+        <div class="stat-content">
+          <span class="stat-icon">📚</span>
+          <div>
+            <span class="profile-number">{{ profile.playlists }}</span>
+            <span class="profile-label">Playlists</span>
+          </div>
+        </div>
       </div>
     </div>
     <button class="logout-button" (click)="logout()">LOGOUT</button>
@@ -22,11 +42,11 @@
   <div class="content-container">
     <div class="top-artists">
       <div class="artists-header">
-        <h2>Top Artists of All Time</h2>
-        <button class="see-more-button">SEE MORE</button>
+        <h2>Top Artists</h2>
+        <a class="see-more-button" routerLink="/top-artists">See more</a>
       </div>
       <ul>
-        <li *ngFor="let artist of topArtists">
+        <li *ngFor="let artist of topArtists | slice:0:10">
           <img *ngIf="artist.imageUrl" [src]="artist.imageUrl" [alt]="artist.name" class="artist-image">
           {{ artist.name }}
         </li>
@@ -34,11 +54,11 @@
     </div>
     <div class="top-tracks">
       <div class="tracks-header">
-        <h2>Top Tracks of All Time</h2>
-        <button class="see-more-button">SEE MORE</button>
+        <h2>Top Tracks</h2>
+        <a class="see-more-button" routerLink="/top-tracks">See more</a>
       </div>
       <ul>
-        <li *ngFor="let track of topTracks">
+        <li *ngFor="let track of topTracks | slice:0:10">
           <div class="track-info">
             <img [src]="track.imageUrl" [alt]="track.title" class="track-image">
             <span>{{ track.title }}</span>
@@ -47,7 +67,6 @@
         </li>
       </ul>
     </div>
-
   </div>
 </div>
 <ng-template #loadingTpl>

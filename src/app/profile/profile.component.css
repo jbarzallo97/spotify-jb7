@@ -22,29 +22,49 @@ h1 {
   font-size: 2rem;
 }
 
-.profile-stats {
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  gap: 24px; /* Agrega espacio entre cada bloque de estadísticas */
-  margin-bottom: 24px;
+/* Nuevas tarjetas de stats */
+.profile-stats-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 16px 16px 24px;
 }
 
-.profile-stats div {
-  text-align: center;
+.stat-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.4);
+}
+
+.stat-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+}
+
+.stat-icon {
+  font-size: 1.2rem;
 }
 
 .profile-number {
   display: block;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 5px;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: #1db954;
-
 }
 
 .profile-label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: #b3b3b3;
 }
 
@@ -68,40 +88,26 @@ h1 {
 }
 
 .content-container {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
   padding: 24px 16px;
-  margin-top: 32px;
+  margin-top: 16px;
 }
 
 .top-artists, .top-tracks {
-  width: 45%;
-}
-
-.top-artists ul, .top-tracks ul {
-  list-style: none;
-  padding: 0;
-}
-
-.top-artists li, .top-tracks li {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.top-tracks li span:first-child {
-  text-align: left;
-}
-
-.top-tracks li span:last-child {
-  text-align: right;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+  padding: 16px 18px 12px;
 }
 
 .see-more-button {
   white-space: nowrap;
   display: inline-block;
   text-align: center;
-  padding: 10px 20px;
+  padding: 8px 14px;
   font-size: 0.85rem;
   background-color: transparent;
   border: 1px solid white;
@@ -109,114 +115,72 @@ h1 {
   cursor: pointer;
   border-radius: 20px;
   font-weight: bold;
+  text-decoration: none;
 }
 
 .see-more-button:hover {
   background-color: white;
   border: 1px solid white;
   color: #000;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
-/* Para alinear el título y el botón en la misma línea */
-.tracks-header {
+/* Headers */
+.tracks-header, .artists-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
-.tracks-header h2 {
+.tracks-header h2, .artists-header h2 {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
-/* Para alinear el título y el botón en la misma línea */
-.artists-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-}
-
-.artists-header h2 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.artist-image {
-  width: 48px; /* Ajusta el tamaño de la imagen */
-  height: 48px; /* Asegúrate de que la imagen sea cuadrada */
-  border-radius: 50%; /* Para que la imagen sea redonda */
-  margin-right: 16px; /* Espacio entre la imagen y el nombre */
-  vertical-align: middle; /* Alinea la imagen con el texto */
-}
-
-.top-artists ul {
-  padding-left: 0; /* Elimina el padding de la lista */
-  list-style: none; /* Elimina las viñetas de la lista */
-}
+/* Listas */
+.top-artists ul, .top-tracks ul { list-style: none; padding: 0; margin: 0; }
 
 .top-artists li {
-  display: flex; /* Usa flexbox para alinear imagen y texto */
-  align-items: center; /* Alinea verticalmente en el centro */
-  margin-bottom: 16px; /* Espacio entre los elementos de la lista */
-  justify-content: flex-start; /* Alinea los elementos al inicio */
-  padding: 4px 0; /* Agrega un padding vertical para más espacio */
-}
-
-.track-info {
-  display: flex; /* Usa flexbox para alinear la imagen y el nombre */
-  align-items: center; /* Alinea verticalmente en el centro */
-}
-
-.track-image {
-  width: 48px; /* Ajusta el tamaño de la imagen */
-  height: 48px; /* Asegúrate de que la imagen sea cuadrada */
-  margin-right: 16px; /* Espacio entre la imagen y el nombre */
-}
-
-.top-tracks ul {
-  padding-left: 0; /* Elimina el padding de la lista */
-  list-style: none; /* Elimina las viñetas de la lista */
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
 }
 
 .top-tracks li {
-  display: flex; /* Usa flexbox para alinear la información de la pista y la duración */
-  justify-content: space-between; /* Espacio entre la izquierda y derecha */
-  align-items: center; /* Alinea verticalmente en el centro */
-  margin-bottom: 16px; /* Espacio entre los elementos de la lista */
-  padding: 4px 0; /* Agrega un padding vertical para más espacio */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
 }
 
-.track-duration {
-  text-align: right; /* Alinea la duración a la derecha */
-  min-width: 40px; /* Asegúrate de que haya espacio suficiente para la duración */
+.top-artists li + li, .top-tracks li + li { border-top: 1px solid rgba(255,255,255,0.06); }
+
+.artist-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
 }
 
-/* Responsive: apilar secciones en móvil */
+.track-info { display: flex; align-items: center; }
+.track-image { width: 48px; height: 48px; border-radius: 6px; object-fit: cover; margin-right: 12px; }
+.track-duration { color: #d1d1d1; min-width: 40px; text-align: right; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .profile-stats-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .content-container { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 768px) {
-  .content-container {
-    flex-direction: column;
-    padding: 16px 12px;
-  }
-
-  .top-artists,
-  .top-tracks {
-    width: 100%;
-  }
-
-  .top-tracks {
-    margin-top: 24px;
-  }
-
-  .tracks-header,
-  .artists-header {
-    margin-bottom: 16px;
-  }
+  .profile-container { max-width: 100%; padding: 0 12px; }
+  .profile-header { margin-top: 50px; }
 }
 
-/* Loader centrado tipo ecualizador */
+/* Loader */
 .loading-wrapper {
   display: flex;
   align-items: center;
@@ -247,4 +211,36 @@ h1 {
 @keyframes bounce {
   0%, 100% { transform: scaleY(0.6); }
   50% { transform: scaleY(1.8); }
+}
+
+.profile-avatar {
+  width: 144px;
+  height: 144px;
+  border-radius: 50%;
+  margin: 0 auto;
+  padding: 3px;
+  background: conic-gradient(#1ed760, #1db954, #1ed760);
+  display: grid;
+  place-items: center;
+}
+
+.profile-avatar .profile-picture {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #111;
+}
+
+.avatar-fallback {
+  width: 144px;
+  height: 144px;
+  border-radius: 50%;
+  margin: 0 auto;
+  background: #222;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
 }

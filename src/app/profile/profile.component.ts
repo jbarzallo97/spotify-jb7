@@ -185,6 +185,12 @@ export class ProfileComponent {
     });
   }
 
+  getInitials(name: string): string {
+    if (!name) { return '?'; }
+    const parts = name.trim().split(/\s+/).slice(0, 2);
+    return parts.map(p => p.charAt(0).toUpperCase()).join('');
+  }
+
 
   logout() {
     this.authService.logout();
