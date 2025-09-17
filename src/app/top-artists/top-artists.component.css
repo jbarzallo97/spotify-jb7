@@ -193,7 +193,7 @@ h1 {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 92%;
-  max-width: 760px;
+  max-width: 700px;
   background: rgba(34,34,34,0.98);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 16px;
@@ -254,16 +254,8 @@ h1 {
     align-items: center;
   }
 
-  .time-period-container {
-    gap: 75px; /* Espacio entre los botones */
-    justify-content: center;
-    margin-top: 30px;
-  }
-
-  .time-period {
-    font-size: 1rem; /* Aumenta el tamaño de fuente de los botones */
-    padding: 0 10px;
-  }
+  .time-period-container { gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .time-period { font-size: 1rem; padding: 10px 16px; }
 
   /* Ajusta la cuadrícula de artistas para que sea más compacta */
   .artists-container {
@@ -292,5 +284,10 @@ h1 {
     font-size: 0.8rem;
     text-align: center;
   }
+
+  .modal-artist { grid-template-columns: 1fr; text-align: center; }
+  .modal-artist img { margin: 0 auto; }
+  .modal-artist .info { align-items: center; }
+  .actions { justify-content: center; }
 }
 
