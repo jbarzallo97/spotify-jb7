@@ -13,17 +13,23 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit(): void {
-    const currentUrl = this.router.url;
-    const lastRoute = localStorage.getItem('lastRoute');
-
-    if (currentUrl === '/' || currentUrl === '') {
-      this.router.navigateByUrl(lastRoute || '/profile');
+    const path = window.location.pathname || '/';
+    if (path === '/') {
+      const lastRoute = localStorage.getItem('lastRoute');
+      if (lastRoute && !lastRoute.startsWith('/callback') && !lastRoute.startsWith('/account')) {
+        this.router.navigateByUrl(lastRoute);
+      } else {
+        // deja que el redirectTo: 'profile' del router haga su trabajo
+      }
     }
 
     this.router.events
       .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
       .subscribe(e => {
-        localStorage.setItem('lastRoute', e.urlAfterRedirects);
+        const url = e.urlAfterRedirects || e.url;
+        if (!url.startsWith('/callback') && !url.startsWith('/account')) {
+          localStorage.setItem('lastRoute', url);
+        }
       });
   }
 }

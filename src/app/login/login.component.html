@@ -1,7 +1,21 @@
 <div class="login-container">
-  <h1>Perfil de Spotify</h1>
+  <div class="bg-shapes">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+  </div>
 
-  <button (click)="loginWithSpotify()">Iniciar sesión con Spotify</button>
+  <div class="login-card">
+    <div class="logo">
+      <i class="fab fa-spotify"></i>
+    </div>
+    <h1>Conecta tu Spotify</h1>
+    <p class="subtitle">Explora tu perfil, artistas y canciones top.</p>
+    <button class="spotify-btn" (click)="loginWithSpotify()">
+      <i class="fab fa-spotify"></i>
+      Iniciar sesión con Spotify
+    </button>
+    <p class="notice">Usaremos el inicio de sesión seguro de Spotify. No guardamos tu contraseña.</p>
+  </div>
 </div>
 
 

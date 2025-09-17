@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ export class AuthService {
   private redirectUri = environment.spotifyRedirectUri;
   private scopes = environment.spotifyScopes;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   login() {
-    const authUrl = `https://accounts.spotify.com/authorize?client_id=${this.clientId}&response_type=token&redirect_uri=${encodeURIComponent(this.redirectUri)}&scope=${encodeURIComponent(this.scopes)}`;
+    const authUrl = `https://accounts.spotify.com/authorize?client_id=${this.clientId}&response_type=token&redirect_uri=${encodeURIComponent(this.redirectUri)}&scope=${encodeURIComponent(this.scopes)}&show_dialog=true`;
     window.location.href = authUrl;
   }
 
@@ -28,17 +29,16 @@ export class AuthService {
   }
 
   getAccessToken(): string | null {
-    if (!this.isTokenExpired()) {
-      return localStorage.getItem('spotify_access_token');
-    } else {
-      this.login();  // Si el token ha expirado, redirigir para hacer login nuevamente
-      return null;
-    }
+    const token = localStorage.getItem('spotify_access_token');
+    if (!token) { return null; }
+    if (this.isTokenExpired()) { return null; }
+    return token;
   }
+
   logout() {
-    // Limpiar el token y redirigir al login
     localStorage.removeItem('spotify_access_token');
     localStorage.removeItem('spotify_token_expiration');
-    this.login();  // Redirigir al login para iniciar sesión nuevamente
+    localStorage.removeItem('lastRoute');
+    this.router.navigate(['/account']);
   }
 }

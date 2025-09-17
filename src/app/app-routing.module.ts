@@ -8,6 +8,7 @@ import { TopArtistsComponent } from './top-artists/top-artists.component';
 import { TopTracksComponent } from './top-tracks/top-tracks.component';
 import { RecentComponent } from './recent/recent.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
+import { AuthGuard } from './core/services/auth.guard';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   {
     path: '',
     component: SidebarComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'profile', pathMatch: 'full' },
       { path: 'profile', component: ProfileComponent },

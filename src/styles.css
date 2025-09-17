@@ -13,5 +13,7 @@ body, html {
 
 body {
   font-family: "Circular Std", system, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--main-fund);
+  color: #fff;
 }
 
