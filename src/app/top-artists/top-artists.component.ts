@@ -12,6 +12,10 @@ export class TopArtistsComponent implements OnInit {
   artists: Array<{ id: string; name: string; imageUrl: string; spotifyUrl: string }> = [];
   isLoading = false;
 
+  isModalOpen = false;
+  isArtistLoading = false;
+  selectedArtist: any = null;
+
   constructor(private spotifyService: SpotifyService, private authService: AuthService) {}
 
   ngOnInit(): void {
@@ -21,6 +25,42 @@ export class TopArtistsComponent implements OnInit {
   selectPeriod(period: 'allTime' | 'last6Months' | 'last4Weeks') {
     this.selectedPeriod = period;
     this.loadArtists();
+  }
+
+  openArtistModal(artistId: string) {
+    const token = this.authService.getAccessToken();
+    if (!token) { return; }
+    this.isModalOpen = true;
+    this.isArtistLoading = true;
+    this.selectedArtist = null;
+    this.spotifyService.getArtist(token, artistId).subscribe({
+      next: (artist) => {
+        this.selectedArtist = artist;
+        this.isArtistLoading = false;
+      },
+      error: () => {
+        this.isArtistLoading = false;
+      }
+    });
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedArtist = null;
+  }
+
+  copyArtistLink(url: string) {
+    if (!url) { return; }
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).catch(() => {});
+    } else {
+      const temp = document.createElement('textarea');
+      temp.value = url;
+      document.body.appendChild(temp);
+      temp.select();
+      try { document.execCommand('copy'); } catch {}
+      document.body.removeChild(temp);
+    }
   }
 
   private loadArtists(): void {

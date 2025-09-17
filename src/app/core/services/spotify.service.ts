@@ -69,4 +69,12 @@ export class SpotifyService {
     const url = `https://api.spotify.com/v1/me/following?type=artist&limit=${limit}`;
     return this.http.get(url, { headers });
   }
+
+  getArtist(accessToken: string, artistId: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${accessToken}`
+    });
+    const url = `https://api.spotify.com/v1/artists/${artistId}`;
+    return this.http.get(url, { headers });
+  }
 }

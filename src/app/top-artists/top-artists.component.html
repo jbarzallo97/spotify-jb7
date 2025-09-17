@@ -31,7 +31,7 @@
       No hay artistas para mostrar.
     </div>
     <ng-container *ngIf="!isLoading && artists.length > 0">
-      <div class="artist-item" *ngFor="let artist of artists">
+      <div class="artist-item" *ngFor="let artist of artists" (click)="openArtistModal(artist.id)">
         <div class="artist-card">
           <img *ngIf="artist.imageUrl" [src]="artist.imageUrl" [alt]="artist.name">
           <p>{{ artist.name }}</p>
@@ -42,4 +42,36 @@
     </ng-container>
   </div>
 
+  <!-- Modal de artista -->
+  <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()"></div>
+  <div class="modal" *ngIf="isModalOpen">
+    <button class="modal-close" (click)="closeModal()">&times;</button>
+    <div class="modal-body" *ngIf="isArtistLoading">
+      <div class="modal-loading">
+        <div class="equalizer">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body" *ngIf="!isArtistLoading && selectedArtist">
+      <div class="modal-artist">
+        <img *ngIf="selectedArtist?.images?.length" [src]="selectedArtist.images[0].url" [alt]="selectedArtist.name">
+        <div class="info">
+          <h3>{{ selectedArtist.name }}</h3>
+          <p class="stats">
+            <span class="stat"><i class="fas fa-users"></i>{{ selectedArtist.followers?.total | number }} seguidores</span>
+            <span class="divider"></span>
+            <span class="stat"><i class="fas fa-fire"></i>Popularidad {{ selectedArtist.popularity }}</span>
+          </p>
+          <div class="genres" *ngIf="selectedArtist.genres?.length">
+            <span *ngFor="let gender of selectedArtist.genres | slice:0:8" class="genre">{{ gender }}</span>
+          </div>
+          <div class="actions">
+            <a class="open-spotify" [href]="selectedArtist?.external_urls?.spotify" target="_blank" rel="noopener">Abrir en Spotify</a>
+            <button class="copy-link" (click)="copyArtistLink(selectedArtist?.external_urls?.spotify)"><i class="fas fa-link"></i> Copiar enlace</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
