@@ -1,1 +1,44 @@
-<p>top-tracks works!</p>
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="content-container">
+      <h1>Top Tracks</h1>
+      <div class="time-period-container">
+        <button class="time-period" [ngClass]="{ 'active': selectedPeriod === 'allTime' }" (click)="selectPeriod('allTime')">All Time</button>
+        <button class="time-period" [ngClass]="{ 'active': selectedPeriod === 'last6Months' }" (click)="selectPeriod('last6Months')">Last 6 Months</button>
+        <button class="time-period" [ngClass]="{ 'active': selectedPeriod === 'last4Weeks' }" (click)="selectPeriod('last4Weeks')">Last 4 Weeks</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="tracks-container">
+    <div *ngIf="isLoading" class="loading-wrapper">
+      <div class="equalizer">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && tracks.length === 0" class="empty-state">No hay canciones para mostrar.</div>
+
+    <ng-container *ngIf="!isLoading && tracks.length > 0">
+      <div class="track-item" *ngFor="let t of paginatedTracks">
+        <div class="left">
+          <img [src]="t.imageUrl" [alt]="t.title" />
+          <div class="meta">
+            <p class="title">{{ t.title }}</p>
+            <p class="artists">{{ t.artists }}</p>
+          </div>
+        </div>
+        <div class="right">
+          <span class="duration">{{ t.duration }}</span>
+          <audio *ngIf="t.previewUrl" [src]="t.previewUrl" controls></audio>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <button class="pager" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span class="page-indicator">{{ currentPage }} / {{ totalPages }}</span>
+        <button class="pager" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+      </div>
+    </ng-container>
+  </div>
+</div>
