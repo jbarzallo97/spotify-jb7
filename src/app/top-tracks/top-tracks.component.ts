@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { SpotifyService } from '../core/services/spotify.service';
 import { AuthService } from '../core/services/auth.service';
 
@@ -15,11 +15,31 @@ export class TopTracksComponent implements OnInit {
   // Paginación (cliente)
   pageSize = 7;
   currentPage = 1;
+  private readonly MOBILE_BREAKPOINT = 768;
+
+  // Modal de track (solo datos del track)
+  isModalOpen = false;
+  isTrackLoading = false;
+  selectedTrack: any = null;
 
   constructor(private spotifyService: SpotifyService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.updatePageSizeForViewport();
     this.loadTracks();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    const prevSize = this.pageSize;
+    this.updatePageSizeForViewport();
+    if (prevSize !== this.pageSize) {
+      this.currentPage = 1;
+    }
+  }
+
+  private updatePageSizeForViewport() {
+    this.pageSize = window.innerWidth <= this.MOBILE_BREAKPOINT ? 6 : 7;
   }
 
   selectPeriod(period: 'allTime' | 'last6Months' | 'last4Weeks') {
@@ -37,12 +57,25 @@ export class TopTracksComponent implements OnInit {
     return this.tracks.slice(start, start + this.pageSize);
   }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) this.currentPage += 1;
+  nextPage() { if (this.currentPage < this.totalPages) this.currentPage += 1; }
+  prevPage() { if (this.currentPage > 1) this.currentPage -= 1; }
+
+  openTrackModal(trackId: string) {
+    const token = this.authService.getAccessToken();
+    if (!token) return;
+    this.isModalOpen = true;
+    this.isTrackLoading = true;
+    this.selectedTrack = null;
+
+    this.spotifyService.getTrack(token, trackId).subscribe({
+      next: (track) => { this.selectedTrack = track; this.isTrackLoading = false; },
+      error: () => { this.isTrackLoading = false; }
+    });
   }
 
-  prevPage() {
-    if (this.currentPage > 1) this.currentPage -= 1;
+  closeModal() {
+    this.isModalOpen = false;
+    this.selectedTrack = null;
   }
 
   private loadTracks(): void {
@@ -81,5 +114,31 @@ export class TopTracksComponent implements OnInit {
       case 'last4Weeks': return 'short_term';
       default: return 'long_term';
     }
+  }
+
+  // Helpers UI
+  copyLink(url: string | null | undefined) {
+    if (!url) { return; }
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(url).catch(() => {});
+    } else {
+      const temp = document.createElement('textarea');
+      temp.value = url;
+      document.body.appendChild(temp);
+      temp.select();
+      try { document.execCommand('copy'); } catch {}
+      document.body.removeChild(temp);
+    }
+  }
+
+  getArtistsList(artists: any[] | undefined | null): string {
+    if (!artists || artists.length === 0) return '';
+    return artists.map(a => a?.name).filter(Boolean).join(', ');
+  }
+
+  getAlbumReleaseDate(track: any): string {
+    const d = track?.album?.release_date as string | undefined;
+    if (!d) return '';
+    return d;
   }
 }

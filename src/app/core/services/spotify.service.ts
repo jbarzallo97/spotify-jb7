@@ -77,4 +77,10 @@ export class SpotifyService {
     const url = `https://api.spotify.com/v1/artists/${artistId}`;
     return this.http.get(url, { headers });
   }
+
+  getTrack(accessToken: string, trackId: string): Observable<any> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${accessToken}` });
+    const url = `https://api.spotify.com/v1/tracks/${trackId}`;
+    return this.http.get(url, { headers });
+  }
 }
