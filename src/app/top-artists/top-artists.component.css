@@ -245,9 +245,6 @@ h1 {
     /* padding: 0 20px; */
   }
 
-  .profile-header {
-    margin-top: 50px; /* Reduce el margen superior para móviles */
-  }
 
   .content-container {
     flex-direction: column; /* Coloca el título y los botones en una columna */
