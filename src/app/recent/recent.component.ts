@@ -71,8 +71,6 @@ export class RecentComponent implements OnInit {
 
   private loadRecentlyPlayed(): void {
     const token = this.authService.getAccessToken();
-    console.log('token', token);
-
     if (!token) return;
     this.isLoading = true;
     this.spotifyService.getRecentlyPlayed(token)
