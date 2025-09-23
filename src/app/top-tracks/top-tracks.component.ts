@@ -80,6 +80,8 @@ export class TopTracksComponent implements OnInit {
 
   private loadTracks(): void {
     const token = this.authService.getAccessToken();
+    console.log('token', token);
+
     if (!token) return;
     this.isLoading = true;
     const timeRange = this.mapPeriodToTimeRange(this.selectedPeriod);

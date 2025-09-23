@@ -83,4 +83,22 @@ export class SpotifyService {
     const url = `https://api.spotify.com/v1/tracks/${trackId}`;
     return this.http.get(url, { headers });
   }
+
+  // Método para obtener las pistas reproducidas recientemente
+  // Documentación: GET https://api.spotify.com/v1/me/player/recently-played
+  getRecentlyPlayed(
+    accessToken: string,
+    // limit: number = 20,
+    after?: number,
+    before?: number
+  ): Observable<any> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${accessToken}` });
+    const params: string[] = [];
+    // if (limit) params.push(`limit=${limit}`);
+    if (after !== undefined) params.push(`after=${after}`);
+    if (before !== undefined) params.push(`before=${before}`);
+    const query = params.length ? `?${params.join('&')}` : '';
+    const url = `https://api.spotify.com/v1/me/player/recently-played${query}`;
+    return this.http.get(url, { headers });
+  }
 }
