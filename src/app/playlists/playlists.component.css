@@ -1,0 +1,30 @@
+.profile-container { text-align: center; color: white; width: 100%; max-width: 1200px; margin: 0 auto; }
+.profile-header { margin-top: 70px; }
+.content-container { display: flex; justify-content: space-between; }
+h1 { font-size: 1.5rem; }
+
+.tracks-container { margin-top: 32px; padding-bottom: 24px; }
+
+.loading-wrapper { display: flex; align-items: center; justify-content: center; padding: 120px 0; }
+.equalizer { display: inline-flex; align-items: flex-end; gap: 6px; }
+.equalizer span { display: block; width: 8px; height: 16px; background: linear-gradient(180deg, #1ed760 0%, #1db954 100%); border-radius: 3px; animation: bounce 1s infinite ease-in-out; box-shadow: 0 0 12px rgba(30, 215, 96, 0.45); }
+.equalizer span:nth-child(2) { animation-delay: 0.1s; }
+.equalizer span:nth-child(3) { animation-delay: 0.2s; }
+.equalizer span:nth-child(4) { animation-delay: 0.3s; }
+.equalizer span:nth-child(5) { animation-delay: 0.4s; }
+@keyframes bounce { 0%, 100% { transform: scaleY(0.6); } 50% { transform: scaleY(1.8); } }
+
+.playlist-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 992px) { .playlist-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .playlist-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.playlist-card { display: block; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; text-decoration: none; color: #fff; transition: transform .15s ease, box-shadow .15s ease; }
+.playlist-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+.playlist-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+.playlist-card .info { padding: 10px; text-align: left; }
+.playlist-card .title { margin: 0 0 4px; font-weight: 700; }
+.playlist-card .meta { margin: 0; color: #cfd2d6; font-size: 0.95rem; }
+.badge { display: inline-block; margin-top: 8px; padding: 4px 8px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 9999px; font-weight: 700; font-size: 0.8rem; }
+
+
+

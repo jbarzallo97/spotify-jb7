@@ -1,1 +1,30 @@
-<p>playlists works!</p>
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="content-container">
+      <h1>Mis Playlists</h1>
+    </div>
+  </div>
+
+  <div class="tracks-container">
+    <div *ngIf="isLoading" class="loading-wrapper">
+      <div class="equalizer">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading && playlists.length === 0" class="empty-state">No hay playlists para mostrar.</div>
+
+    <ng-container *ngIf="!isLoading && playlists.length > 0">
+      <div class="playlist-grid">
+        <a class="playlist-card" *ngFor="let p of playlists" [href]="p.href" target="_blank" rel="noopener">
+          <img [src]="p.imageUrl" [alt]="p.name">
+          <div class="info">
+            <p class="title">{{ p.name }}</p>
+            <p class="meta">{{ p.tracksTotal }} canciones • {{ p.owner }}</p>
+            <span class="badge" *ngIf="p.public">Pública</span>
+          </div>
+        </a>
+      </div>
+    </ng-container>
+  </div>
+</div>
