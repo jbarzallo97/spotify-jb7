@@ -13,8 +13,7 @@ export class TopArtistsComponent implements OnInit {
   isLoading = false;
 
   isModalOpen = false;
-  isArtistLoading = false;
-  selectedArtist: any = null;
+  selectedArtistId: string | null = null;
 
   constructor(private spotifyService: SpotifyService, private authService: AuthService) {}
 
@@ -28,40 +27,15 @@ export class TopArtistsComponent implements OnInit {
   }
 
   openArtistModal(artistId: string) {
-    const token = this.authService.getAccessToken();
-    if (!token) { return; }
+    this.selectedArtistId = artistId;
     this.isModalOpen = true;
-    this.isArtistLoading = true;
-    this.selectedArtist = null;
-    this.spotifyService.getArtist(token, artistId).subscribe({
-      next: (artist) => {
-        this.selectedArtist = artist;
-        this.isArtistLoading = false;
-      },
-      error: () => {
-        this.isArtistLoading = false;
-      }
-    });
   }
 
   closeModal() {
     this.isModalOpen = false;
-    this.selectedArtist = null;
+    this.selectedArtistId = null;
   }
 
-  copyArtistLink(url: string) {
-    if (!url) { return; }
-    if (navigator?.clipboard?.writeText) {
-      navigator.clipboard.writeText(url).catch(() => {});
-    } else {
-      const temp = document.createElement('textarea');
-      temp.value = url;
-      document.body.appendChild(temp);
-      temp.select();
-      try { document.execCommand('copy'); } catch {}
-      document.body.removeChild(temp);
-    }
-  }
 
   private loadArtists(): void {
     const token = this.authService.getAccessToken();

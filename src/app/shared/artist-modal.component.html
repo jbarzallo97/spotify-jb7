@@ -1,0 +1,32 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="close()"></div>
+<div class="modal" *ngIf="isOpen">
+  <button class="modal-close" (click)="close()">&times;</button>
+  <div class="modal-body" *ngIf="isLoading">
+    <div class="modal-loading">
+      <div class="equalizer">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body" *ngIf="!isLoading && artist">
+    <div class="modal-artist">
+      <img *ngIf="artist?.images?.length" [src]="artist.images[0].url" [alt]="artist.name">
+      <div class="info">
+        <h3 class="artist-title">{{ artist.name }}</h3>
+        <p class="genres" *ngIf="artist?.genres?.length">{{ artist.genres.join(', ') }}</p>
+
+        <div class="meta-row">
+          <span class="pill"><i class="fas fa-users"></i>{{ formatNumber(artist?.followers?.total) }} Seguidores</span>
+          <span class="pill"><i class="fas fa-star"></i>{{ artist?.popularity }}% Popularidad</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="actions">
+          <a class="open-spotify" [href]="artist?.external_urls?.spotify" target="_blank" rel="noopener">Abrir en Spotify</a>
+          <button class="copy-link" (click)="copyLink(artist?.external_urls?.spotify)"><i class="fas fa-link"></i> Copiar enlace</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

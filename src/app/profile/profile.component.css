@@ -145,14 +145,17 @@ h1 {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 0;
+  padding: 8px 12px;
+  cursor: pointer;
 }
+
+.top-artists li:hover { background: rgba(255,255,255,0.04); }
 
 .top-tracks li {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
+  padding: 8px 12px;
   cursor: pointer;
 }
 
@@ -169,8 +172,8 @@ h1 {
 }
 
 .track-info { display: flex; align-items: center; }
-.track-image { width: 48px; height: 48px; border-radius: 6px; object-fit: cover; margin-right: 12px; }
-.track-duration { color: #d1d1d1; min-width: 40px; text-align: right; }
+.track-image { width: 48px; height: 48px; border-radius: 6px; object-fit: cover; margin-right: 14px; }
+.track-duration { color: #d1d1d1; min-width: 40px; text-align: right; margin-right: 4px; }
 
 /* Responsive */
 @media (max-width: 900px) {

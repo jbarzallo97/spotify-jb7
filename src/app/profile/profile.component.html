@@ -46,7 +46,7 @@
         <a class="see-more-button" routerLink="/top-artists">See more</a>
       </div>
       <ul>
-        <li *ngFor="let artist of topArtists | slice:0:10">
+        <li *ngFor="let artist of topArtists | slice:0:10" (click)="artist.id && openArtistModal(artist.id)" style="cursor: pointer;">
           <img *ngIf="artist.imageUrl" [src]="artist.imageUrl" [alt]="artist.name" class="artist-image">
           {{ artist.name }}
         </li>
@@ -70,6 +70,7 @@
   </div>
 
   <app-track-modal [isOpen]="isModalOpen" [trackId]="selectedTrackId" (closed)="closeModal()"></app-track-modal>
+  <app-artist-modal [isOpen]="isArtistModalOpen" [artistId]="selectedArtistId" (closed)="closeArtistModal()"></app-artist-modal>
 </div>
 <ng-template #loadingTpl>
   <div class="loading-wrapper">

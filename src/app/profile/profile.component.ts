@@ -31,6 +31,10 @@ export class ProfileComponent {
   isModalOpen = false;
   selectedTrackId: string | null = null;
 
+  // Modal artist reusable
+  isArtistModalOpen = false;
+  selectedArtistId: string | null = null;
+
   constructor(private spotifyService: SpotifyService, private authService: AuthService) { }
 
   ngOnInit(): void {
@@ -45,8 +49,10 @@ export class ProfileComponent {
     this.spotifyService.getTopArtists(token, 'long_term', 10, 0)
       .subscribe((res: any) => {
         this.topArtists = (res?.items || []).map((a: any) => ({
+          id: a?.id ?? '',
           name: a?.name ?? 'Unknown Artist',
-          imageUrl: a?.images?.[0]?.url ?? ''
+          imageUrl: a?.images?.[0]?.url ?? '',
+          spotifyUrl: a?.external_urls?.spotify ?? '#'
         }));
       });
   }
@@ -133,8 +139,10 @@ export class ProfileComponent {
     const topArtists$ = this.spotifyService.getTopArtists(token, 'long_term', 10, 0).pipe(
       map((res: any) => {
         this.topArtists = (res?.items || []).map((a: any) => ({
+          id: a?.id ?? '',
           name: a?.name ?? 'Unknown Artist',
-          imageUrl: a?.images?.[0]?.url ?? ''
+          imageUrl: a?.images?.[0]?.url ?? '',
+          spotifyUrl: a?.external_urls?.spotify ?? '#'
         }));
         return true;
       }),
@@ -193,6 +201,9 @@ export class ProfileComponent {
 
   openTrackModal(trackId: string) { this.selectedTrackId = trackId; this.isModalOpen = true; }
   closeModal() { this.isModalOpen = false; this.selectedTrackId = null; }
+
+  openArtistModal(artistId: string) { this.selectedArtistId = artistId; this.isArtistModalOpen = true; }
+  closeArtistModal() { this.isArtistModalOpen = false; this.selectedArtistId = null; }
 
   getInitials(name: string): string {
     if (!name) { return '?'; }
