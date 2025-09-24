@@ -60,7 +60,7 @@ h1 { font-size: 1.5rem; }
 .scrollable::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #1ed760, #1db954); border-radius: 9999px; border: 2px solid rgba(34,34,34,0.98); box-shadow: 0 0 10px rgba(29,185,84,0.25); }
 .scrollable::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #22e06f, #1fcd5b); }
 
-@media (max-width: 768px) { .modal-playlist { grid-template-columns: 1fr; text-align: center; } .modal-playlist img { margin: 0 auto; width: 160px; height: 160px; } .actions { justify-content: center; } }
+@media (max-width: 768px) { .modal-playlist { grid-template-columns: 1fr; text-align: center; } .modal-playlist img { margin: 0 auto; width: 140px; height: 140px; } .actions { justify-content: center; } }
 
 /* Centrar título en mobile */
 @media (max-width: 768px) {
@@ -71,6 +71,9 @@ h1 { font-size: 1.5rem; }
 /* Padding lateral en mobile para la lista de tracks */
 @media (max-width: 768px) {
   .tracks-container { padding-left: 16px; padding-right: 16px; }
+  .playlist-title { font-size: 1.4rem; }
+  .track-item { padding: 8px 10px; }
+  .track-item img { width: 52px; height: 52px; }
 }
 
 
