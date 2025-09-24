@@ -18,7 +18,7 @@ h1 { font-size: 1.5rem; }
 @media (max-width: 992px) { .playlist-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 640px) { .playlist-grid { grid-template-columns: repeat(2, 1fr); } }
 
-.playlist-card { display: block; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; text-decoration: none; color: #fff; transition: transform .15s ease, box-shadow .15s ease; }
+.playlist-card { display: block; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; text-decoration: none; color: #fff; transition: transform .15s ease, box-shadow .15s ease; cursor: pointer; }
 .playlist-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
 .playlist-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
 .playlist-card .info { padding: 10px; text-align: left; }
