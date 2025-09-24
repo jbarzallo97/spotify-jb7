@@ -25,7 +25,11 @@ export class ProfileComponent {
   };
 
   topArtists: Artist[] = [];
-  topTracks: Track[] = [];
+  topTracks: Array<Track & { id?: string }> = [];
+
+  // Modal track reusable
+  isModalOpen = false;
+  selectedTrackId: string | null = null;
 
   constructor(private spotifyService: SpotifyService, private authService: AuthService) { }
 
@@ -55,10 +59,11 @@ export class ProfileComponent {
     this.spotifyService.getTopTracks(token, 'long_term', 10, 0)
       .subscribe((res: any) => {
         this.topTracks = (res?.items || []).map((t: any) => ({
+          id: t?.id ?? '',
           title: t?.name ?? 'Unknown Track',
           duration: this.formatDuration(t?.duration_ms ?? 0),
           imageUrl: t?.album?.images?.[0]?.url ?? ''
-        }));
+        } as any));
       });
   }
 
@@ -139,10 +144,11 @@ export class ProfileComponent {
     const topTracks$ = this.spotifyService.getTopTracks(token, 'long_term', 10, 0).pipe(
       map((res: any) => {
         this.topTracks = (res?.items || []).map((t: any) => ({
+          id: t?.id ?? '',
           title: t?.name ?? 'Unknown Track',
           duration: this.formatDuration(t?.duration_ms ?? 0),
           imageUrl: t?.album?.images?.[0]?.url ?? ''
-        }));
+        } as any));
         return true;
       }),
       catchError(() => of(false))
@@ -184,6 +190,9 @@ export class ProfileComponent {
       this.isLoading = false;
     });
   }
+
+  openTrackModal(trackId: string) { this.selectedTrackId = trackId; this.isModalOpen = true; }
+  closeModal() { this.isModalOpen = false; this.selectedTrackId = null; }
 
   getInitials(name: string): string {
     if (!name) { return '?'; }

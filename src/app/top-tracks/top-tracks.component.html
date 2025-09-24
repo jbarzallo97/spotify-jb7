@@ -42,41 +42,5 @@
     </ng-container>
   </div>
 
-  <!-- Modal de track -->
-  <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()"></div>
-  <div class="modal" *ngIf="isModalOpen">
-    <button class="modal-close" (click)="closeModal()">&times;</button>
-    <div class="modal-body" *ngIf="isTrackLoading">
-      <div class="modal-loading">
-        <div class="equalizer">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
-      </div>
-    </div>
-    <div class="modal-body" *ngIf="!isTrackLoading && selectedTrack">
-      <div class="modal-track">
-        <img *ngIf="selectedTrack?.album?.images?.length" [src]="selectedTrack.album.images[0].url" [alt]="selectedTrack.name">
-        <div class="info">
-          <h3 class="track-title">{{ selectedTrack.name }}</h3>
-          <p class="artists">{{ getArtistsList(selectedTrack.artists) }}</p>
-
-          <div class="meta-row">
-            <span class="pill"><i class="far fa-clock"></i>{{ (selectedTrack.duration_ms / 1000 / 60) | number:'1.0-0' }}m {{ (selectedTrack.duration_ms / 1000) % 60 | number:'2.0-0' }}s</span>
-            <span class="pill"><i class="fas fa-star"></i>{{ selectedTrack.popularity }}% Popularidad</span>
-            <span class="pill" *ngIf="selectedTrack?.external_ids?.isrc"><i class="fas fa-barcode"></i>{{ selectedTrack.external_ids.isrc }}</span>
-          </div>
-
-          <div class="divider"></div>
-
-          <p class="album-line"><i class="fas fa-compact-disc"></i> Álbum: <span class="album-name">{{ selectedTrack.album?.name }}</span> <span class="album-date">({{ getAlbumReleaseDate(selectedTrack) }})</span></p>
-          <p class="sub-stats">Track # {{ selectedTrack.track_number }} • Disco {{ selectedTrack.disc_number }}</p>
-
-          <div class="actions">
-            <a class="open-spotify" [href]="selectedTrack?.external_urls?.spotify" target="_blank" rel="noopener">Abrir en Spotify</a>
-            <button class="copy-link" (click)="copyLink(selectedTrack?.external_urls?.spotify)"><i class="fas fa-link"></i> Copiar enlace</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <app-track-modal [isOpen]="isModalOpen" [trackId]="selectedTrackId" (closed)="closeModal()"></app-track-modal>
 </div>

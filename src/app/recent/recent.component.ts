@@ -16,8 +16,7 @@ export class RecentComponent implements OnInit {
   private readonly MOBILE_BREAKPOINT = 768;
 
   isModalOpen = false;
-  isTrackLoading = false;
-  selectedTrack: any = null;
+  selectedTrackId: string | null = null;
 
   constructor(private spotifyService: SpotifyService, private authService: AuthService) {}
 
@@ -51,23 +50,9 @@ export class RecentComponent implements OnInit {
   nextPage() { if (this.currentPage < this.totalPages) this.currentPage += 1; }
   prevPage() { if (this.currentPage > 1) this.currentPage -= 1; }
 
-  openTrackModal(trackId: string) {
-    const token = this.authService.getAccessToken();
-    if (!token) return;
-    this.isModalOpen = true;
-    this.isTrackLoading = true;
-    this.selectedTrack = null;
+  openTrackModal(trackId: string) { this.selectedTrackId = trackId; this.isModalOpen = true; }
 
-    this.spotifyService.getTrack(token, trackId).subscribe({
-      next: (track) => { this.selectedTrack = track; this.isTrackLoading = false; },
-      error: () => { this.isTrackLoading = false; }
-    });
-  }
-
-  closeModal() {
-    this.isModalOpen = false;
-    this.selectedTrack = null;
-  }
+  closeModal() { this.isModalOpen = false; this.selectedTrackId = null; }
 
   private loadRecentlyPlayed(): void {
     const token = this.authService.getAccessToken();

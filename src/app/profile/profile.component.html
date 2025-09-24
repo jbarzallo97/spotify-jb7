@@ -58,7 +58,7 @@
         <a class="see-more-button" routerLink="/top-tracks">See more</a>
       </div>
       <ul>
-        <li *ngFor="let track of topTracks | slice:0:10">
+        <li *ngFor="let track of topTracks | slice:0:10" (click)="track.id && openTrackModal(track.id)">
           <div class="track-info">
             <img [src]="track.imageUrl" [alt]="track.title" class="track-image">
             <span>{{ track.title }}</span>
@@ -68,6 +68,8 @@
       </ul>
     </div>
   </div>
+
+  <app-track-modal [isOpen]="isModalOpen" [trackId]="selectedTrackId" (closed)="closeModal()"></app-track-modal>
 </div>
 <ng-template #loadingTpl>
   <div class="loading-wrapper">

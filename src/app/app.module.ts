@@ -13,6 +13,7 @@ import { PlaylistsComponent } from './playlists/playlists.component';
 import { RecentComponent } from './recent/recent.component';
 import { TopTracksComponent } from './top-tracks/top-tracks.component';
 import { TopArtistsComponent } from './top-artists/top-artists.component';
+import { TrackModalComponent } from './artist-modal/track-modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TopArtistsComponent } from './top-artists/top-artists.component';
     PlaylistsComponent,
     RecentComponent,
     TopTracksComponent,
-    TopArtistsComponent
+    TopArtistsComponent,
+    TrackModalComponent
   ],
   imports: [
     BrowserModule,

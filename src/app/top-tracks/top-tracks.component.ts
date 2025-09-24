@@ -17,10 +17,9 @@ export class TopTracksComponent implements OnInit {
   currentPage = 1;
   private readonly MOBILE_BREAKPOINT = 768;
 
-  // Modal de track (solo datos del track)
+  // Modal reusable
   isModalOpen = false;
-  isTrackLoading = false;
-  selectedTrack: any = null;
+  selectedTrackId: string | null = null;
 
   constructor(private spotifyService: SpotifyService, private authService: AuthService) {}
 
@@ -61,22 +60,11 @@ export class TopTracksComponent implements OnInit {
   prevPage() { if (this.currentPage > 1) this.currentPage -= 1; }
 
   openTrackModal(trackId: string) {
-    const token = this.authService.getAccessToken();
-    if (!token) return;
+    this.selectedTrackId = trackId;
     this.isModalOpen = true;
-    this.isTrackLoading = true;
-    this.selectedTrack = null;
-
-    this.spotifyService.getTrack(token, trackId).subscribe({
-      next: (track) => { this.selectedTrack = track; this.isTrackLoading = false; },
-      error: () => { this.isTrackLoading = false; }
-    });
   }
 
-  closeModal() {
-    this.isModalOpen = false;
-    this.selectedTrack = null;
-  }
+  closeModal() { this.isModalOpen = false; this.selectedTrackId = null; }
 
   private loadTracks(): void {
     const token = this.authService.getAccessToken();

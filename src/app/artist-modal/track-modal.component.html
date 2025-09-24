@@ -1,0 +1,36 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="close()"></div>
+<div class="modal" *ngIf="isOpen">
+  <button class="modal-close" (click)="close()">&times;</button>
+  <div class="modal-body" *ngIf="isLoading">
+    <div class="modal-loading">
+      <div class="equalizer">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-body" *ngIf="!isLoading && track">
+    <div class="modal-track">
+      <img *ngIf="track?.album?.images?.length" [src]="track.album.images[0].url" [alt]="track.name">
+      <div class="info">
+        <h3 class="track-title">{{ track.name }}</h3>
+        <p class="artists">{{ getArtistsList(track.artists) }}</p>
+
+        <div class="meta-row">
+          <span class="pill"><i class="far fa-clock"></i>{{ (track.duration_ms / 1000 / 60) | number:'1.0-0' }}m {{ (track.duration_ms / 1000) % 60 | number:'2.0-0' }}s</span>
+          <span class="pill"><i class="fas fa-star"></i>{{ track.popularity }}% Popularidad</span>
+          <span class="pill" *ngIf="track?.external_ids?.isrc"><i class="fas fa-barcode"></i>{{ track.external_ids.isrc }}</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <p class="album-line"><i class="fas fa-compact-disc"></i> Álbum: <span class="album-name">{{ track.album?.name }}</span> <span class="album-date">({{ getAlbumReleaseDate(track) }})</span></p>
+        <p class="sub-stats">Track # {{ track.track_number }} • Disco {{ track.disc_number }}</p>
+
+        <div class="actions">
+          <a class="open-spotify" [href]="track?.external_urls?.spotify" target="_blank" rel="noopener">Abrir en Spotify</a>
+          <button class="copy-link" (click)="copyLink(track?.external_urls?.spotify)"><i class="fas fa-link"></i> Copiar enlace</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

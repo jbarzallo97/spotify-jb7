@@ -153,7 +153,10 @@ h1 {
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
+  cursor: pointer;
 }
+
+.top-tracks li:hover { background: rgba(255,255,255,0.04); }
 
 .top-artists li + li, .top-tracks li + li { border-top: 1px solid rgba(255,255,255,0.06); }
 
