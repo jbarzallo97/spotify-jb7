@@ -74,6 +74,8 @@
   padding-bottom: 50px;
 }
 
+.bottom-icon a { color: inherit; text-decoration: none; }
+
 .bottom-icon i {
   font-size: 24px;
   cursor: pointer;
