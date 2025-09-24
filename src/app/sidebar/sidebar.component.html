@@ -6,30 +6,40 @@
 
     <div class="menu">
       <ul>
-        <li [ngClass]="{'active': selectedMenuItem === 'profile'}" (click)="selectMenuItem('profile')" [routerLink]="['/profile']">
-          <i class="fas fa-user"></i>
-          <span>Profile</span>
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+          <a class="menu-link" routerLink="/profile" aria-label="Profile" title="Profile">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+          </a>
         </li>
-        <li [ngClass]="{'active': selectedMenuItem === 'top-artists'}" (click)="selectMenuItem('top-artists')" [routerLink]="['/top-artists']">
-          <i class="fas fa-microphone"></i>
-          <span>Top Artists</span>
+        <li routerLinkActive="active">
+          <a class="menu-link" routerLink="/top-artists" aria-label="Top Artists" title="Top Artists">
+            <i class="fas fa-microphone"></i>
+            <span>Top Artists</span>
+          </a>
         </li>
-        <li [ngClass]="{'active': selectedMenuItem === 'top-tracks'}" (click)="selectMenuItem('top-tracks')" [routerLink]="['/top-tracks']">
-          <i class="fas fa-music"></i>
-          <span>Top Tracks</span>
+        <li routerLinkActive="active">
+          <a class="menu-link" routerLink="/top-tracks" aria-label="Top Tracks" title="Top Tracks">
+            <i class="fas fa-music"></i>
+            <span>Top Tracks</span>
+          </a>
         </li>
-        <li [ngClass]="{'active': selectedMenuItem === 'recent'}" (click)="selectMenuItem('recent')" [routerLink]="['/recent']">
-          <i class="fas fa-clock"></i>
-          <span>Recent</span>
+        <li routerLinkActive="active">
+          <a class="menu-link" routerLink="/recent" aria-label="Recent" title="Recent">
+            <i class="fas fa-clock"></i>
+            <span>Recent</span>
+          </a>
         </li>
-        <li [ngClass]="{'active': selectedMenuItem === 'playlists'}" (click)="selectMenuItem('playlists')" [routerLink]="['/playlists']">
-          <i class="fas fa-list"></i>
-          <span>Playlists</span>
+        <li routerLinkActive="active">
+          <a class="menu-link" routerLink="/playlists" aria-label="Playlists" title="Playlists">
+            <i class="fas fa-list"></i>
+            <span>Playlists</span>
+          </a>
         </li>
       </ul>
     </div>
     <div class="bottom-icon">
-      <a href="https://github.com/jbarzallo97/spotify-jb7" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository">
+      <a href="https://github.com/jbarzallo97/spotify-jb7" target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository" title="Ver en GitHub">
         <i class="fab fa-github"></i>
       </a>
     </div>
