@@ -1,27 +1,94 @@
-# SpotifyJb7
+# Spotify JB7
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
+Aplicación Angular que integra la API de Spotify para visualizar Top Tracks, Top Artists, Recent Plays, Playlists y detalles avanzados de tracks/playlists, con modales reutilizables y UI responsive.
 
-## Development server
+## Características
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Autenticación OAuth2 (Implicit/Auth Code) contra Spotify
+- Vistas: Profile, Top Tracks, Top Artists, Recently Played, Playlists
+- Modal reutilizable de Track y de Artist
+- Detalles de Playlist con scroll, paginado incremental y recomendaciones
+- Audio features/análisis por track (con fallback al endpoint no deprecado)
+- UI responsive con mejoras de UX (hover, focus-visible, scrollbars, mobile-first)
 
-## Code scaffolding
+## Tech Stack
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Angular 15
+- TypeScript, RxJS
+- Spotify Web API
+- CSS responsive
 
-## Build
+## Configuración local
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1) Clonar repo
+```bash
+git clone https://github.com/jbarzallo97/spotify-jb7
+cd spotify-jb7
+```
 
-## Running unit tests
+2) Instalar dependencias
+```bash
+npm install
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3) Variables de entorno
 
-## Running end-to-end tests
+Configura `src/environments/environment.ts` y `environment.prod.ts` con tu `clientId`, `redirectUri` y scopes. Importante: el `clientId` NO debe ir hardcodeado en el código fuente; usa variables de entorno/archivos de entorno según tu flujo [[memory:8590230]].
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Ejemplo mínimo:
+```ts
+export const environment = {
+  production: false,
+  spotifyClientId: 'TU_CLIENT_ID',
+  spotifyRedirectUri: 'http://localhost:4200/callback',
+  spotifyScopes: [
+    'user-read-email',
+    'user-read-private',
+    'user-top-read',
+    'user-read-recently-played',
+    'playlist-read-private',
+    'playlist-read-collaborative',
+    'user-library-read'
+  ]
+};
+```
 
-## Further help
+4) Desarrollo
+```bash
+npm start
+# Abre http://localhost:4200
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Endpoints de Spotify usados
+
+- `/me` (perfil), `/me/top/artists`, `/me/top/tracks`
+- `/me/player/recently-played`
+- `/me/playlists`, `/playlists/{id}`, `/playlists/{id}/tracks`
+- `/recommendations`
+- `/audio-features/{id}` y `/audio-analysis/{id}` (single-track); el batch de audio-features está deprecado
+
+## Recomendaciones y Audio Features
+
+- Recomendaciones: se limitan a 1–5 seeds válidos (tracks/artists/genres) y se filtran vacíos. Se puede pasar `market` opcional.
+- Audio Features: se consulta por ID individual y se orquesta con `forkJoin`, `retryWhen` y `catchError` para robustez.
+
+## Scripts útiles
+
+```bash
+npm start        # Dev server
+npm run build    # Build prod
+npm run lint     # Linter
+```
+
+## Despliegue
+
+1) Build de producción
+```bash
+npm run build
+```
+2) Sirve el contenido de `dist/spotify-jb7` (o el nombre generado) en tu hosting preferido (Vercel, Netlify, Nginx, S3+CloudFront, etc.).
+3) Configura en el Dashboard de Spotify la `Redirect URI` pública para Auth.
+
+## Créditos
+
+Hecho por [Johan Barzallo](https://github.com/jbarzallo97). Diseño e implementación frontend, integración Spotify API y UX.
