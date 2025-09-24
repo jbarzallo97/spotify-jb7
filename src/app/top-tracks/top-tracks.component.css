@@ -64,9 +64,8 @@ h1 { font-size: 1.5rem; }
 /* Responsive */
 @media (max-width: 768px) {
   .profile-container { max-width: 100%; }
-  .content-container { flex-direction: column; align-items: center; }
-  .time-period-container { gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .time-period { font-size: 1rem; padding: 10px 16px; }
+  .content-container { flex-direction: column; align-items: center; gap: 12px; }
+  .time-period-container { gap: 12px; justify-content: center; flex-wrap: wrap; width: 100%; }
   .tracks-container { padding-left: 16px; padding-right: 16px; }
 }
 
