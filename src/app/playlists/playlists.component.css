@@ -62,5 +62,16 @@ h1 { font-size: 1.5rem; }
 
 @media (max-width: 768px) { .modal-playlist { grid-template-columns: 1fr; text-align: center; } .modal-playlist img { margin: 0 auto; width: 160px; height: 160px; } .actions { justify-content: center; } }
 
+/* Centrar título en mobile */
+@media (max-width: 768px) {
+  .content-container { justify-content: center; }
+  h1 { margin: 0 auto; text-align: center; }
+}
+
+/* Padding lateral en mobile para la lista de tracks */
+@media (max-width: 768px) {
+  .tracks-container { padding-left: 16px; padding-right: 16px; }
+}
+
 
 

@@ -67,6 +67,7 @@ h1 { font-size: 1.5rem; }
   .content-container { flex-direction: column; align-items: center; }
   .time-period-container { gap: 12px; justify-content: center; flex-wrap: wrap; }
   .time-period { font-size: 1rem; padding: 10px 16px; }
+  .tracks-container { padding-left: 16px; padding-right: 16px; }
 }
 
 .pagination { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; }

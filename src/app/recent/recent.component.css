@@ -49,6 +49,7 @@ h1 { font-size: 1.5rem; }
 @media (max-width: 768px) {
   .profile-container { max-width: 100%; }
   .content-container { flex-direction: column; align-items: center; }
+  .tracks-container { padding-left: 16px; padding-right: 16px; }
 }
 
 .pagination { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 16px; }
