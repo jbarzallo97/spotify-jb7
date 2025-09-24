@@ -101,4 +101,18 @@ export class SpotifyService {
     const url = `https://api.spotify.com/v1/me/player/recently-played${query}`;
     return this.http.get(url, { headers });
   }
+
+  // Playlist por id
+  getPlaylist(accessToken: string, playlistId: string): Observable<any> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${accessToken}` });
+    const url = `https://api.spotify.com/v1/playlists/${playlistId}`;
+    return this.http.get(url, { headers });
+  }
+
+  // Tracks de una playlist (paginado)
+  getPlaylistTracks(accessToken: string, playlistId: string, limit: number = 100, offset: number = 0): Observable<any> {
+    const headers = new HttpHeaders({ Authorization: `Bearer ${accessToken}` });
+    const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=${limit}&offset=${offset}`;
+    return this.http.get(url, { headers });
+  }
 }

@@ -16,15 +16,62 @@
 
     <ng-container *ngIf="!isLoading && playlists.length > 0">
       <div class="playlist-grid">
-        <a class="playlist-card" *ngFor="let p of playlists" [href]="p.href" target="_blank" rel="noopener">
+        <div class="playlist-card" *ngFor="let p of playlists" (click)="openPlaylist(p.id)">
           <img [src]="p.imageUrl" [alt]="p.name">
           <div class="info">
             <p class="title">{{ p.name }}</p>
             <p class="meta">{{ p.tracksTotal }} canciones • {{ p.owner }}</p>
             <span class="badge" *ngIf="p.public">Pública</span>
           </div>
-        </a>
+        </div>
       </div>
     </ng-container>
+  </div>
+
+  <!-- Modal de playlist -->
+  <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()"></div>
+  <div class="modal" *ngIf="isModalOpen">
+    <button class="modal-close" (click)="closeModal()">&times;</button>
+    <div class="modal-body" *ngIf="isPlaylistLoading">
+      <div class="modal-loading">
+        <div class="equalizer">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body" *ngIf="!isPlaylistLoading && selectedPlaylist">
+      <div class="modal-playlist">
+        <img *ngIf="selectedPlaylist?.images?.length" [src]="selectedPlaylist.images[0].url" [alt]="selectedPlaylist.name">
+        <div class="info">
+          <h3 class="playlist-title">{{ selectedPlaylist.name }}</h3>
+          <p class="artists">{{ selectedPlaylist?.owner?.display_name }} • {{ selectedPlaylist?.tracks?.total }} canciones</p>
+          <div class="actions">
+            <a class="open-spotify" [href]="selectedPlaylist?.external_urls?.spotify" target="_blank" rel="noopener">Abrir en Spotify</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="tracks-container scrollable">
+        <div class="track-item" *ngFor="let t of selectedTracks">
+          <div class="left">
+            <img [src]="t.imageUrl" [alt]="t.title" />
+            <div class="meta">
+              <p class="title">{{ t.title }}</p>
+              <p class="artists">{{ t.artists }}</p>
+            </div>
+          </div>
+          <div class="right">
+            <span class="duration">{{ t.duration }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="load-more" *ngIf="hasMoreTracks">
+        <button class="pager" (click)="loadMoreTracks(selectedPlaylist?.id)" [disabled]="isPlaylistLoading">Cargar más</button>
+      </div>
+    </div>
   </div>
 </div>
