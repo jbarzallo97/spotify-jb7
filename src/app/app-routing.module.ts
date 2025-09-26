@@ -33,6 +33,7 @@ const routes: Routes = [
       { path: 'playlists', component: PlaylistsComponent }
     ]
   },
+  { path: '**', redirectTo: 'account' },
 ];
 
 @NgModule({
