@@ -4,7 +4,7 @@
       <img *ngIf="profile.pictureUrl; else noPic" class="profile-picture" [src]="profile.pictureUrl" [alt]="profile.name">
     </div>
     <ng-template #noPic>
-      <div class="avatar-fallback">{{ getInitials(profile.name) }}</div>
+      <img class="profile-picture" src="assets/images/perfil.jpg" alt="Default profile">
     </ng-template>
     <h1>{{ profile.name }}</h1>
     <div class="profile-stats-cards">
