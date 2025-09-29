@@ -1,7 +1,7 @@
 <div class="profile-container">
   <div class="profile-header">
     <div class="content-container">
-      <h1>Top Artist</h1>
+      <h1>Top Artists</h1>
       <div class="time-period-container">
         <button class="time-period"
                 [ngClass]="{'active': selectedPeriod === 'allTime'}"
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div *ngIf="!isLoading && artists.length === 0" class="empty-state">
-      No hay artistas para mostrar.
+      No artists to show.
     </div>
     <ng-container *ngIf="!isLoading && artists.length > 0">
       <div class="artist-item" *ngFor="let artist of artists" (click)="openArtistModal(artist.id)">
@@ -36,7 +36,7 @@
           <img *ngIf="artist.imageUrl" [src]="artist.imageUrl" [alt]="artist.name">
           <p>{{ artist.name }}</p>
         </div>
-        <a class="artist-overlay" [href]="artist.spotifyUrl" target="_blank" rel="noopener noreferrer" aria-label="Ver en Spotify"></a>
+        <a class="artist-overlay" [href]="artist.spotifyUrl" target="_blank" rel="noopener noreferrer" aria-label="View on Spotify"></a>
         <div class="overlay-icon" aria-hidden="true"><i class="fas fa-info-circle"></i></div>
       </div>
     </ng-container>

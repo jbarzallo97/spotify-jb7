@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div *ngIf="!isLoading && tracks.length === 0" class="empty-state">No hay canciones para mostrar.</div>
+    <div *ngIf="!isLoading && tracks.length === 0" class="empty-state">No tracks to show.</div>
 
     <ng-container *ngIf="!isLoading && tracks.length > 0">
       <div class="track-item" *ngFor="let t of paginatedTracks" (click)="openTrackModal(t.id)">
@@ -35,9 +35,9 @@
       </div>
 
       <div class="pagination">
-        <button class="pager" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+        <button class="pager" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
         <span class="page-indicator">{{ currentPage }} / {{ totalPages }}</span>
-        <button class="pager" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+        <button class="pager" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
       </div>
     </ng-container>
   </div>

@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div *ngIf="!isLoading && tracks.length === 0" class="empty-state">No hay reproducciones recientes.</div>
+    <div *ngIf="!isLoading && tracks.length === 0" class="empty-state">No recent plays.</div>
 
     <ng-container *ngIf="!isLoading && tracks.length > 0">
       <div class="track-item" *ngFor="let t of paginatedTracks" (click)="openTrackModal(t.id)">
@@ -21,7 +21,7 @@
           <div class="meta">
             <p class="title">{{ t.title }}</p>
             <p class="artists">{{ t.artists }}</p>
-            <p class="played-at">Reproducido: {{ formatPlayedAt(t.playedAt) }}</p>
+            <p class="played-at">Played: {{ formatPlayedAt(t.playedAt) }}</p>
           </div>
         </div>
         <div class="right">
@@ -31,9 +31,9 @@
       </div>
 
       <div class="pagination">
-        <button class="pager" (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+        <button class="pager" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
         <span class="page-indicator">{{ currentPage }} / {{ totalPages }}</span>
-        <button class="pager" (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+        <button class="pager" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
       </div>
     </ng-container>
   </div>

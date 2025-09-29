@@ -61,7 +61,7 @@ h1 { font-size: 1.7rem; margin: 8px 0 6px; }
 .notice { color: #cbd0d6; font-size: 0.9rem; margin-top: 14px; }
 
 @media (max-width: 480px) {
-  .login-card { max-width: 92%; }
+  .login-card { max-width: 80%; padding: 22px 16px; border-radius: 14px; }
   .blob-1 { width: 320px; height: 320px; }
   .blob-2 { width: 380px; height: 380px; }
 }

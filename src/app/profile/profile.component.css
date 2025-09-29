@@ -184,6 +184,9 @@ h1 {
 @media (max-width: 768px) {
   .profile-container { max-width: 100%; }
   .profile-header { margin-top: 50px; }
+  /* Ocultar íconos de las tarjetas de stats en mobile */
+  .stat-icon { display: none; }
+  .stat-content { gap: 8px; }
 }
 
 /* Loader */
